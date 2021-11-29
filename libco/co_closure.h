@@ -92,5 +92,5 @@ public:\
 #define co_func_end }
 
 
-#endif /* __CO_CLOSURE_H__ */
+#endif
 
