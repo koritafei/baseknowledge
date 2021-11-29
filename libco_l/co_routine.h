@@ -84,4 +84,46 @@ int co_poll(stCoEpoll_t *ctx, struct pollfd *fds, nfds_t nfds, int timeout_ms);
  * @param  arg              My Pan doc
  * */
 void co_eventloop(stCoEpoll_t *ctx, pfn_co_eventloop_t pfn, void *arg);
+
+// specific
+/**
+ * @brief
+ * @param  key              My Pan doc
+ * @param  value            My Pan doc
+ * @return int
+ * */
+int co_setspecific(pthread_key_t key, const void *value);
+
+/**
+ * @brief
+ * @param  key              My Pan doc
+ * */
+void co_getspecific(pthread_key_t key);
+
+// event
+
+/**
+ * @brief 获取当前线程的所有协程事件
+ * @return stCoEpoll_t*
+ * */
+stCoEpoll_t *co_get_epoll_ct();
+
+// hook sys call
+void co_enable_hook_sys();
+void co_disable_hook_sys();
+void co_is_enable_sys_hook();
+
+// sync
+struct stCoCond_t;
+stCoCond_t *co_cond_alloc();
+int co_cond_free(stCoCond_t *cc);
+int co_cond_signal(stCoCond_t *);
+int co_cond_broadcast(stCoCond_t *);
+int co_cond_timedwait(stCoCond_t *, int timeout_ms);
+
+// share stack
+stShareStack_t *co_alloc_sharestack(int iCount, int iStackSize);
+
+void co_set_env_list(const char *name[], size_t cnt);
+void co_log_err(const char *fmt, ...);
 #endif /* __CO_ROUTINE_H__ */
