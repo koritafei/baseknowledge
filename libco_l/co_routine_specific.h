@@ -22,7 +22,7 @@ extern void *co_getspecific(pthread_key_t key);
         pthread_once(&_routine_once_##name, _routine_make_key_##name);         \
         _routine_init_##name = 1;                                              \
       }                                                                        \
-      T *p = (T *)co_getspecific(__routine_key_##name);                        \
+      T *p = (T *)co_getspecific(_routine_key_##name);                         \
       if (!p) {                                                                \
         p       = (T *)calloc(1, sizeof(T));                                   \
         int ret = co_setspecific(_routine_key_##name, p);                      \
