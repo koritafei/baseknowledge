@@ -12,13 +12,13 @@ struct coctx_param_t {
 
 struct coctx_t {
 #if defined(__i386__)
-  void *regs[8]; //  x86使用8个寄存器
+  void *regs[8];  //  x86使用8个寄存器
 #else
-  void *regs[14]; // 其他寄存器保留14个
+  void *regs[14];  // 其他寄存器保留14个
 #endif
 
-  size_t ss_size; // 栈大小
-  char *ss_sp;    // 栈
+  size_t ss_size;  // 栈大小
+  char  *ss_sp;    // 栈
 };
 
 int coctx_init(coctx_t *ctx);

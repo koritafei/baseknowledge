@@ -7,18 +7,18 @@
 
 // struct
 struct stCoRoutine_t;
-struct stShareStack_t; // 共享栈
+struct stShareStack_t;  // 共享栈
 
 /**
  * @brief 协程属性，用于每个协程自定义一些属性
  * */
 struct stCoRoutineAttr_t {
-  int stack_size; // 如果是共享栈模式则无需制定，否则必须指定
+  int stack_size;  // 如果是共享栈模式则无需制定，否则必须指定
   stShareStack_t *share_stack;
 
   stCoRoutineAttr_t() {
-    stack_size = 128 * 1024; // 默认为128KB
-    share_stack = NULL;      // 默认不是共享栈
+    stack_size  = 128 * 1024;  // 默认为128KB
+    share_stack = NULL;        // 默认不是共享栈
   }
 } __attribute__((packed));
 
@@ -34,8 +34,10 @@ typedef void *(*pfn_co_routine_t)(void *);
  * @param  args             参数
  * @return int
  * */
-int co_create(stCoRoutine_t **co, const stCoRoutineAttr_t *attr,
-              void *(*routine)(void *), void *args);
+int co_create(stCoRoutine_t          **co,
+              const stCoRoutineAttr_t *attr,
+              void *(*routine)(void *),
+              void *args);
 
 /**
  * @brief 提交运行协程
@@ -98,7 +100,7 @@ int co_setspecific(pthread_key_t key, const void *value);
  * @brief
  * @param  key              My Pan doc
  * */
-void co_getspecific(pthread_key_t key);
+void *co_getspecific(pthread_key_t key);
 
 // event
 
@@ -111,15 +113,15 @@ stCoEpoll_t *co_get_epoll_ct();
 // hook sys call
 void co_enable_hook_sys();
 void co_disable_hook_sys();
-void co_is_enable_sys_hook();
+bool co_is_enable_sys_hook();
 
 // sync
 struct stCoCond_t;
 stCoCond_t *co_cond_alloc();
-int co_cond_free(stCoCond_t *cc);
-int co_cond_signal(stCoCond_t *);
-int co_cond_broadcast(stCoCond_t *);
-int co_cond_timedwait(stCoCond_t *, int timeout_ms);
+int         co_cond_free(stCoCond_t *cc);
+int         co_cond_signal(stCoCond_t *);
+int         co_cond_broadcast(stCoCond_t *);
+int         co_cond_timedwait(stCoCond_t *, int timeout_ms);
 
 // share stack
 stShareStack_t *co_alloc_sharestack(int iCount, int iStackSize);

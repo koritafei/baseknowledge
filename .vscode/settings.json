@@ -15,6 +15,7 @@
     "*.HLASM*": "hlasm",
     "*.HLA*": "hlasm",
     "algorithm": "cpp",
-    "random": "cpp"
+    "random": "cpp",
+    "typeinfo": "cpp"
   }
 }
